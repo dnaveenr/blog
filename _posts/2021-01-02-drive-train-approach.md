@@ -1,6 +1,7 @@
 ---
 toc: true
 layout: post
+comments: true
 description: Understanding the Drivetrain Approach.
 categories: [drivetrain, ML, approach]
 title: The Drivetrain Approach
