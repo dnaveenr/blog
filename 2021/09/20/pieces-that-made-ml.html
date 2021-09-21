@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Little Pieces that made the Whole | Desanur Naveen Reddy</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Little Pieces that made the Whole" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Regularization, Weight Init, Optimizers, Activation and Loss Functions." />
+<meta property="og:description" content="Regularization, Weight Init, Optimizers, Activation and Loss Functions." />
+<link rel="canonical" href="https://dnaveenr.github.io/blog/2021/09/20/pieces-that-made-ml.html" />
+<meta property="og:url" content="https://dnaveenr.github.io/blog/2021/09/20/pieces-that-made-ml.html" />
+<meta property="og:site_name" content="Desanur Naveen Reddy" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-09-20T00:00:00-05:00" />
+<script type="application/ld+json">
+{"url":"https://dnaveenr.github.io/blog/2021/09/20/pieces-that-made-ml.html","@type":"BlogPosting","headline":"Little Pieces that made the Whole","dateModified":"2021-09-20T00:00:00-05:00","datePublished":"2021-09-20T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://dnaveenr.github.io/blog/2021/09/20/pieces-that-made-ml.html"},"description":"Regularization, Weight Init, Optimizers, Activation and Loss Functions.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://dnaveenr.github.io/blog/feed.xml" title="Desanur Naveen Reddy" /><!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-171331322-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">Desanur Naveen Reddy</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a><a class="page-link" href="/blog/travel/">Travel</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Little Pieces that made the Whole</h1><p class="page-description">Regularization, Weight Init, Optimizers, Activation and Loss Functions.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-09-20T00:00:00-05:00" itemprop="datePublished">
+        Sep 20, 2021
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      11 min read
+    
+</span></p>
+
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#introduction">Introduction</a></li>
+<li class="toc-entry toc-h2"><a href="#regularization">Regularization</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#1-dropout">1. Dropout</a></li>
+<li class="toc-entry toc-h3"><a href="#2-dropconnect">2. DropConnect</a></li>
+<li class="toc-entry toc-h3"><a href="#3-batch-normalization">3. Batch Normalization</a></li>
+<li class="toc-entry toc-h3"><a href="#4-data-augmentation">4. Data Augmentation</a></li>
+<li class="toc-entry toc-h3"><a href="#5-noise-in-datalabelgradient">5. Noise in Data/Label/Gradient</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#weight-initialisation">Weight Initialisation</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#1-xaviers-initialisation">1. Xavier’s initialisation</a></li>
+<li class="toc-entry toc-h3"><a href="#2-hes-initialisation">2. He’s initialisation</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#choosing-gradient-descent-parameters">Choosing Gradient Descent Parameters</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#1-adagrad--adaptive-gradient-optimizer">1. Adagrad : Adaptive Gradient Optimizer</a></li>
+<li class="toc-entry toc-h3"><a href="#2-rmsprop---root-mean-squared">2. RMSProp - Root Mean Squared</a></li>
+<li class="toc-entry toc-h3"><a href="#3-adam---adaptive-moment-estimation">3. Adam - Adaptive Moment Estimation</a></li>
+<li class="toc-entry toc-h3"><a href="#4-momentum">4. Momentum</a></li>
+<li class="toc-entry toc-h3"><a href="#5-nesterov-momentum-look-ahead-momentum">5. Nesterov Momentum (look-ahead momentum)</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#activation-functions">Activation Functions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#1-relu---rectified-linear-unit">1. ReLU - Rectified Linear Unit</a></li>
+<li class="toc-entry toc-h3"><a href="#2-leaky-relus">2. Leaky ReLUs</a></li>
+<li class="toc-entry toc-h3"><a href="#3-prelu---parametric-relu">3. PReLU - Parametric ReLU</a></li>
+<li class="toc-entry toc-h3"><a href="#4-elu---exponential-linear-units">4. ELU - Exponential Linear Units</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#loss-functions">Loss Functions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#1-cross-entropy-loss">1. Cross Entropy Loss</a></li>
+<li class="toc-entry toc-h3"><a href="#2-embedding-loss">2. Embedding Loss</a></li>
+<li class="toc-entry toc-h3"><a href="#3-mean-squared-loss">3. Mean-Squared Loss</a></li>
+<li class="toc-entry toc-h3"><a href="#4-absolute-error">4. Absolute Error</a></li>
+<li class="toc-entry toc-h3"><a href="#5-kldivergence">5. KLDivergence</a></li>
+<li class="toc-entry toc-h3"><a href="#6-max-margin-loss">6. Max-Margin Loss</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#references">References</a></li>
+</ul><h2 id="introduction">
+<a class="anchor" href="#introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h2>
+
+<p>I was part of the CVIT Summer School 2021, in one of the lectures by Prof.Vineeth Balasubramanian, the following slide was used to describe the various pieces which led to the advancements in DL.</p>
+
+<figure>
+    <img src="https://dnaveenr.github.io/blog/images/little_pieces/pieces-that-made-ML.png" width="600" height="450">
+    <figcaption>Little Pieces that made the Whole. Credits : Prof.Vineeth Balasubramanian slides</figcaption>
+</figure>
+
+<p>All the concepts mentioned in this slide are very important and the building blocks of a NN.
+These concepts are asked quite often in interviews, and I aim to write an overview of the concepts mentioned here for a quick glance and revision.</p>
+
+<h2 id="regularization">
+<a class="anchor" href="#regularization" aria-hidden="true"><span class="octicon octicon-link"></span></a>Regularization</h2>
+
+<p>Regularization is the concept of adding an additional term or penalty to your loss function such that it makes the model harder to learn the existing concept.
+It is often a common method used to solve the problem of overfitting since the weight added slows the weight update process and makes it harder to learn and not overfit.</p>
+
+<h3 id="1-dropout">
+<a class="anchor" href="#1-dropout" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. Dropout</h3>
+
+<p><img src="/blog/images/little_pieces/dropout.png" alt="" title="You can see the application of Dropout in the image."></p>
+
+<p>Dropout is a commonly used method in deep learning. In Dropout, you randomly drop a set of neurons in your neural network based on a probability metric. So the network is made to learn with a lesser number of neurons or weights which makes it learn better, more robust, and not overfit on the data.</p>
+
+<p><img src="/blog/images/little_pieces/dropout_prob.png" alt="" title="a) At train time, a unit is present with probability p. b) At test time, the unit is always present."></p>
+
+<ul>
+  <li>Dropout drops the activations in the network.</li>
+  <li>Dropout is used only in the training process and not during test time.</li>
+</ul>
+
+<h3 id="2-dropconnect">
+<a class="anchor" href="#2-dropconnect" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. DropConnect</h3>
+
+<p><img src="/blog/images/little_pieces/dropout-vs-dropconnect.png" alt="" title="DropOut vs DropConnect"></p>
+
+<p>DropConnect is similar to Dropout, but it drops the weights instead of the nodes in the network with a certain probability, so a node remains partially active.</p>
+
+<p>Both Dropout and DropConnect are methods used to prevent co-adaption in the network. This means that we want the units to independently learn rather than depending on each other.
+In each training step, the weights or activations drop will be different.</p>
+
+<h3 id="3-batch-normalization">
+<a class="anchor" href="#3-batch-normalization" aria-hidden="true"><span class="octicon octicon-link"></span></a>3. Batch Normalization</h3>
+
+<p>In Batch Normalization(BN), we take the average of the mean and standard deviations of the activations of the layers and use these to normalize the activations. This way the distribution of the neurons after each layer remains the same, thus boosting the performance of the model, speeds up training, and gives us the ability to use a higher learning rate.</p>
+
+<p>BN is applied for every training mini-batch. It is believed that BN adds a sense of randomness since each mini-batch will have a different set of means and standard deviations, thus the normalized values will be slightly different each time.</p>
+
+<p><img src="/blog/images/little_pieces/bn.png" alt="" title="Figure showing the Batch Normalized Network."></p>
+
+<ul>
+  <li>If the normalized activations are y^. BN Layer would contain: gamma * y^ + beta, where gamma, beta are learnable parameters. These are used to tune the normalized activations to make accurate predictions.</li>
+</ul>
+
+<h3 id="4-data-augmentation">
+<a class="anchor" href="#4-data-augmentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>4. Data Augmentation</h3>
+
+<p>Data augmentation is the process of :</p>
+<ul>
+  <li>adding variety to your dataset by having variations to your data,</li>
+  <li>helps in increasing your dataset size.</li>
+  <li>helps in making the model more robust and prevents overfitting to some extent.</li>
+</ul>
+
+<p>Examples of common data augmentation techniques for images are rotation, flipping, perspective warping, brightness changes, and contrast changes.
+Examples for text include back translation, synonym replacement, random insertion etc.</p>
+
+<h3 id="5-noise-in-datalabelgradient">
+<a class="anchor" href="#5-noise-in-datalabelgradient" aria-hidden="true"><span class="octicon octicon-link"></span></a>5. Noise in Data/Label/Gradient</h3>
+
+<p>It has been observed that adding random noise helps in generalisation, fault tolerance, and better learning. Adding noise has a regularization effect.</p>
+
+<p>The ways we can add noise include:</p>
+<ul>
+  <li>adding noise to training data ( a form of data augmentation )</li>
+  <li>adding noise to labels ( class labels )</li>
+  <li>adding gradient noise</li>
+</ul>
+
+<p><img src="/blog/images/little_pieces/gradient_noise.png" alt="" title="Gradient Noise, Credits : Neelakantan et al"></p>
+
+<p>Gaussian noise is added to every gradient g at every time step t.</p>
+
+<h2 id="weight-initialisation">
+<a class="anchor" href="#weight-initialisation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Weight Initialisation</h2>
+
+<p>Weight initialisation is the concept of how the weights in the model are initialised before the training is started. It plays a huge impact on how well the model learns and has an effect on the final accuracy as well.</p>
+
+<h3 id="1-xaviers-initialisation">
+<a class="anchor" href="#1-xaviers-initialisation" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. Xavier’s initialisation</h3>
+
+<p>The goal of this intialisation is to ensure that the variance of activations is the same across all layers. The constant variance helps in avoiding the gradient from exploding or vanishing.</p>
+
+<ul>
+  <li>Xavier init is designed to work well with tanh and sigmoid activations.</li>
+</ul>
+
+<p>Xavier initialization sets a layer’s weights to values chosen from a random uniform distribution that’s bounded between :
+<img src="/blog/images/little_pieces/xavier_init.png" alt="" title="Layers weights picked from a random uniform distribution having the above bounds, Credits: Xavier Glorot et al"></p>
+
+<p>In the above equation:</p>
+<ul>
+  <li>nj is the number of incoming connections to a layer.</li>
+  <li>nj+1 is the number of outgoing connections from a layer.</li>
+</ul>
+
+<h3 id="2-hes-initialisation">
+<a class="anchor" href="#2-hes-initialisation" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. He’s initialisation</h3>
+
+<p>This is more suited for activation functions such as ReLU, it takes into account the non-linearity of functions.
+<img src="/blog/images/little_pieces/he_init.png" alt="" title="Truncated normal distribution centered on 0, stddev = sqrt(2 / fan_in), Credits : He et al">
+It draws samples from a <em>truncated normal distribution</em> centered on 0 with stddev = sqrt(2 / fan_in) where fan_in is the number of input units in the weight tensor.</p>
+
+<h2 id="choosing-gradient-descent-parameters">
+<a class="anchor" href="#choosing-gradient-descent-parameters" aria-hidden="true"><span class="octicon octicon-link"></span></a>Choosing Gradient Descent Parameters</h2>
+
+<p>We discuss the optimizers are used in the gradient descent process. These help in training the network better and reaching the global minima faster.</p>
+
+<h3 id="1-adagrad--adaptive-gradient-optimizer">
+<a class="anchor" href="#1-adagrad--adaptive-gradient-optimizer" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. Adagrad : Adaptive Gradient Optimizer</h3>
+
+<p><code class="language-plaintext highlighter-rouge">w' = w - alpha * dw</code></p>
+
+<p>Typically in GD, mini-batch GD, the learning rate is fixed.</p>
+
+<p><strong>Core idea</strong> : each weight has a different learning rate. It is parameter-based learning rate tuning.</p>
+
+<ul>
+  <li>More updates a parameter gets, smaller the weightage of the update. [low learning rate for parameters of frequently occurring features]</li>
+  <li>Fewer updates a parameter gets, more the weightage of the update. [high learning rate for parameters for infrequently occurring features]</li>
+</ul>
+
+<p>It is well suited for working with sparse data.</p>
+
+<p><img src="https://miro.medium.com/max/820/1*MSh27XmaN8617enBdGpEzw.png" alt="" title="Adagrad Equation."></p>
+
+<p>where Gt holds the <em>sum of the squares of all previous gradients</em> till the point t.</p>
+
+<p>Advantages :</p>
+
+<ul>
+  <li>No need to manually change the learning rate.</li>
+</ul>
+
+<p>Disadvantages :</p>
+
+<ul>
+  <li>Accumulation of squared gradient in the denominator. It keeps increasing with training and thus leads to making the learning rate too small with time.</li>
+</ul>
+
+<h3 id="2-rmsprop---root-mean-squared">
+<a class="anchor" href="#2-rmsprop---root-mean-squared" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. RMSProp - Root Mean Squared</h3>
+
+<p>It is very similar to Adagrad but it aims to fix the problem of the diminishing gradient by using an <strong>exponentially decaying average</strong> of the gradient.</p>
+
+<p><img src="https://miro.medium.com/max/1366/1*9v4BxT8pWHwJfbNXGqi7lQ.png" width="400" height="150"></p>
+
+<p>For example, in the above equation</p>
+<ul>
+  <li>if value of beta = 0.9,</li>
+  <li>vt will be 0.9 * previous gradient + 0.1 * (current_gradient) ^ 2</li>
+</ul>
+
+<p>This means the direction of the previous gradients is given more weightage than the recent update. This ensures that the gradient does not oscillate much and moves in the right direction.</p>
+
+<p><img src="/blog/images/little_pieces/rms_prop.png" alt="" title="Momentum (blue) and RMSprop (green) convergence. We see that RMSprop is faster."></p>
+
+<h3 id="3-adam---adaptive-moment-estimation">
+<a class="anchor" href="#3-adam---adaptive-moment-estimation" aria-hidden="true"><span class="octicon octicon-link"></span></a>3. Adam - Adaptive Moment Estimation</h3>
+
+<p>The addition in Adam is that it stores :</p>
+<ul>
+  <li>exponentially decaying average of past gradients (mt) - Equation 1 +</li>
+  <li>exponentially decaying average of past squared gradients (vt) - Equation 2 [As in RMSProp]</li>
+</ul>
+
+<p><img src="/blog/images/little_pieces/adam_equation_numbered.png" alt="" title="Adam Optimizer equations."></p>
+
+<p>The authors observed that when :</p>
+<ul>
+  <li>mt, vt are initialised as vectors of zeros and</li>
+  <li>when B1, B2 are small ( close to 1)
+    <ul>
+      <li>mt, vt were <em>biased towards zeros</em>
+</li>
+    </ul>
+  </li>
+</ul>
+
+<p>To counter these biases, they compute bias-corrected moments i.e equation 3 and 4 in the above figure.</p>
+
+<p>Equation 5 is the final Adam equation.</p>
+
+<p>Authors propose the following default values :</p>
+<ul>
+  <li>B1 - 0.9</li>
+  <li>B2 - 0.999</li>
+  <li>Epsilon - 10^-8</li>
+  <li>Good default suggested for Learning rate - n - 0.001</li>
+</ul>
+
+<p>According to Kingma et al., 2014, the Adam optimizer is “computationally efficient, has little memory requirement, invariant to diagonal rescaling of gradients, and is <strong>well suited for problems that are large in terms of data/parameters</strong>”.</p>
+
+<h3 id="4-momentum">
+<a class="anchor" href="#4-momentum" aria-hidden="true"><span class="octicon octicon-link"></span></a>4. Momentum</h3>
+
+<p>Momentum helps in reaching the minima faster by giving a push by making the gradient move in the direction of the previous update. It results in faster convergence and reduced oscillations.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Equation : w = w - n * dw + gamma * vt
+    where n - the learning rate
+          vt - is the value of w at time t-1 (last update to w)
+          gamma - the momentum parameter (usually initialised to 0.9)
+</code></pre></div></div>
+
+<p>This gist of momentum is that we get to local minima faster because we don’t oscillate up and down the y-axis. The time to convergence is faster when using momentum.</p>
+
+<p>Pros :</p>
+<ul>
+  <li>faster convergence than SGD
+Cons :</li>
+  <li>If momentum is too high, then we may miss the minima and move ahead, then moving backwards and end up missing it again.</li>
+</ul>
+
+<h3 id="5-nesterov-momentum-look-ahead-momentum">
+<a class="anchor" href="#5-nesterov-momentum-look-ahead-momentum" aria-hidden="true"><span class="octicon octicon-link"></span></a>5. Nesterov Momentum (look-ahead momentum)</h3>
+
+<p>It is a kind of look-ahead momentum updation. This is done by using an approximation of the next gradient value in the present momentum update equation.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>w_ahead = w + gamma * vt-1 [n*dw is ignored]
+(Gives an approximation of the next position of parameters, refer momentum eq.) 
+vt = gamma * vt-1 - n * dw_ahead
+w = w + vt
+</code></pre></div></div>
+<p>The gradient is computed at the lookahead point(w_ahead) instead of the old position w.</p>
+
+<p><img src="/blog/images/little_pieces/momentum-vs-nestorov.png" alt="" title="Nesterov momentum update is closer to the actual step as compared with momentum alone."></p>
+
+<p>Nesterov momentum: Instead of evaluating the gradient at the current position (red circle), we know that our momentum is about to carry us to the tip of the green arrow. With Nesterov momentum, we therefore instead evaluate the gradient at this “looked-ahead” position.</p>
+
+<h2 id="activation-functions">
+<a class="anchor" href="#activation-functions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Activation Functions</h2>
+
+<p>An activation function is a non-linear transformation we do over the weighted sum of inputs before sending it to the next layer.</p>
+
+<p><img src="/blog/images/little_pieces/activation_function.png" alt="" title="Activation fn being applied over the weighted sum of inputs."></p>
+
+<p>Activation functions add non-linearity to our NN and without it, our NN would just be a product + bias addition which would be a linear transformation. This would limit the capabilities of our NN.</p>
+
+<h3 id="1-relu---rectified-linear-unit">
+<a class="anchor" href="#1-relu---rectified-linear-unit" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. ReLU - Rectified Linear Unit</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ReLU function :
+  f(x) = 0 , x &lt; 0
+       = x when x &gt; 0
+  -&gt; f(x) = max(0, x)
+</code></pre></div></div>
+<p><img src="/blog/images/little_pieces/relu_function.png" alt="" title="Graphical representation of the ReLU function."></p>
+
+<p>ReLU helps in faster and efficient training of the NN and leads to fewer vanishing gradient problems.</p>
+
+<p>Issues :</p>
+<ul>
+  <li>Non-differentiable at zero.</li>
+  <li>Not zero-centered</li>
+  <li>Unbounded</li>
+  <li>Neurons can be pushed into states in which they become inactive for essentially all inputs. This is called the dying ReLU problem.</li>
+</ul>
+
+<h3 id="2-leaky-relus">
+<a class="anchor" href="#2-leaky-relus" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. Leaky ReLUs</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Modified version of ReLU
+  f(x) = x , when x &gt; 0
+       = 0.01 * x, when x &lt; 0
+</code></pre></div></div>
+
+<p>Leaky ReLUs allow a small, positive gradient when the unit is not active. This activation is preferred in tasks that suffer from sparse gradients, for example in training GANs.</p>
+
+<p><img src="/blog/images/little_pieces/leaky_vs_parametric_relu.png" alt="" title="Comparison of Leaky vs Parametric ReLU."></p>
+
+<h3 id="3-prelu---parametric-relu">
+<a class="anchor" href="#3-prelu---parametric-relu" aria-hidden="true"><span class="octicon octicon-link"></span></a>3. PReLU - Parametric ReLU</h3>
+
+<p>The generalized version of Leaky ReLU, where a parameter is used instead of 0.01.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Parametric ReLU
+  f(x) = x , x &gt; 0
+         alpha * x, x &lt; 0
+</code></pre></div></div>
+<p>Alpha is learned along with other NN parameters. The intuition is that different layers may require different types of non-linearity.</p>
+
+<h3 id="4-elu---exponential-linear-units">
+<a class="anchor" href="#4-elu---exponential-linear-units" aria-hidden="true"><span class="octicon octicon-link"></span></a>4. ELU - Exponential Linear Units</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ELU function :
+    f(x) = x , x &gt; 0
+           a*(e^x - 1) , otherwise
+  a is a hyperparameter to be tuned, and a &gt; 0 is a constraint.
+</code></pre></div></div>
+
+<p><img src="/blog/images/little_pieces/elu_function.png" alt="" title="Graphical representation of ELU."></p>
+
+<p>ELUs try to make the mean activations closer to zero, which speeds up the learning.</p>
+
+<h2 id="loss-functions">
+<a class="anchor" href="#loss-functions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Loss Functions</h2>
+
+<p>A loss function is a function we use to optimize the parameters of our model.</p>
+
+<h3 id="1-cross-entropy-loss">
+<a class="anchor" href="#1-cross-entropy-loss" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. Cross Entropy Loss</h3>
+
+<p>It is generally used for the optimization of classification problems. When the number of classes is 2, it is known as binary cross entropy loss.</p>
+
+<p><img src="https://androidkt.com/wp-content/uploads/2021/05/Selection_098.png" width="400" height="150"></p>
+
+<h3 id="2-embedding-loss">
+<a class="anchor" href="#2-embedding-loss" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. Embedding Loss</h3>
+
+<p>The embedding loss functions are a class of loss functions used in deep metric learning. These are used to improve the embedding generated so that similar inputs have a closer distance and dissimilar inputs have a larger distance.
+Examples of embedding losses are contrastive loss, triplet loss, margin loss etc.</p>
+
+<h3 id="3-mean-squared-loss">
+<a class="anchor" href="#3-mean-squared-loss" aria-hidden="true"><span class="octicon octicon-link"></span></a>3. Mean-Squared Loss</h3>
+
+<p>The average squared error of the actual and estimated value i.e mean of the square of the errors.</p>
+
+<p><img src="https://d1zx6djv3kb1v7.cloudfront.net/wp-content/media/2019/11/Differences-between-MSE-and-RMSE-1-i2tutorials.jpg" width="400" height="150"></p>
+
+<p>It is a commonly used loss function for regression.</p>
+
+<h3 id="4-absolute-error">
+<a class="anchor" href="#4-absolute-error" aria-hidden="true"><span class="octicon octicon-link"></span></a>4. Absolute Error</h3>
+
+<p>The sum of the absolute difference between the actual and estimated value.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Absolute Error : |y-y_|
+           where y is the actual value
+                 y_ is the estimated value
+</code></pre></div></div>
+<p>It is a loss function used to regression models</p>
+
+<h3 id="5-kldivergence">
+<a class="anchor" href="#5-kldivergence" aria-hidden="true"><span class="octicon octicon-link"></span></a>5. KLDivergence</h3>
+
+<p>It is the measure of how two probability distributions (eg: p and q ) are different from each other.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  KLDivergence :
+    D(P || Q) = summation p(x) * log(p(x)/q(x))
+</code></pre></div></div>
+<p>As a loss function, the divergence loss between y_true and y_pred is calculated.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Loss(y_true || y_pred) = y_true * log(y_true/y_pred)
+</code></pre></div></div>
+
+<h3 id="6-max-margin-loss">
+<a class="anchor" href="#6-max-margin-loss" aria-hidden="true"><span class="octicon octicon-link"></span></a>6. Max-Margin Loss</h3>
+
+<p>It is also known as hinge loss. It is used for training SVMs for the task of classification.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Loss = max(1 - y_true * y_pred, 0)
+  y_true are expected to be -1 or 1.
+</code></pre></div></div>
+
+<h2 id="references">
+<a class="anchor" href="#references" aria-hidden="true"><span class="octicon octicon-link"></span></a>References</h2>
+
+<p>In writing this post, I have referred various articles, blog posts, the FastAI book to get a better understanding. I am adding some references to read deeper on some of the topics :</p>
+
+<ul>
+  <li>Optimizers :
+    <ul>
+      <li>Great <a href="https://ruder.io/optimizing-gradient-descent/index.html">blog post</a> by Sebastian Ruder on “An overview of gradient descent optimization algorithms”.</li>
+      <li>ML from Scratch - <a href="https://mlfromscratch.com/optimizers-explained/#/">Link</a>
+</li>
+      <li>CS231n Course - <a href="https://cs231n.github.io/neural-networks-3/#update">Link</a>
+</li>
+    </ul>
+  </li>
+  <li>Embedding Loss :
+    <ul>
+      <li>Explanation of the various embedding loss functions - <a href="https://towardsdatascience.com/metric-learning-loss-functions-5b67b3da99a5">Link</a>
+</li>
+    </ul>
+  </li>
+  <li>FastAI Book - <a href="https://course.fast.ai/">Link</a>
+</li>
+</ul>
+
+<p>Do comment and let me know if you have any feedback or suggestions to improve this blogpost. Thank you!</p>
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="dnaveenr/blog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/blog/2021/09/20/pieces-that-made-ml.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>ML Engineer, Computer Vision, Deep Learning and more..</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/dnaveenr" title="dnaveenr"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/dnaveenr" title="dnaveenr"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
