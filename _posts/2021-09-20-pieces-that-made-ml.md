@@ -4,14 +4,18 @@ layout: post
 comments: true
 description: Regularization, Weight Init, Optimizers, Activation and Loss Functions.
 categories: []
-title: Little Pieces that made the Whole DL
+title: Little Pieces that made the Whole
 ---
 
 ## Introduction
 
-I was part of the CVIT Summer School 2021, in few of the lectures, the following slide was used to describe the recent advances in DL. 
+I was part of the CVIT Summer School 2021, in one of the lectures by Prof.Vineeth Balasubramanian, the following slide was used to describe the various pieces which led to the advancements in DL.
 
-![]({{ site.baseurl }}/images/pieces-that-made-ML.png "Little pieces that made the whole")
+<figure>
+    <img src='https://dnaveenr.github.io/blog/images/little_pieces/pieces-that-made-ML.png' width="600" height="450"/>
+    <figcaption>Little Pieces that made the Whole. Credits : Prof.Vineeth Balasubramanian slides</figcaption>
+</figure>
+
 
 All the concepts mentioned in this slide are very important and the building blocks of a NN.
 These concepts are asked quite often in interviews, and I aim to write an overview of the concepts mentioned here for a quick glance and revision.
@@ -24,19 +28,19 @@ It is often a common method used to solve the problem of overfitting since the w
 
 ### 1. Dropout
 
-![]({{ site.baseurl }}/images/dropout.png "You can see the application of Dropout in the image.")
+![]({{ site.baseurl }}/images/little_pieces/dropout.png "You can see the application of Dropout in the image.")
 
 
 Dropout is a commonly used method in deep learning. In Dropout, you randomly drop a set of neurons in your neural network based on a probability metric. So the network is made to learn with a lesser number of neurons or weights which makes it learn better, more robust, and not overfit on the data.
 
-![]({{ site.baseurl }}/images/dropout_prob.png "a) At train time, a unit is present with probability p. b) At test time, the unit is always present.")
+![]({{ site.baseurl }}/images/little_pieces/dropout_prob.png "a) At train time, a unit is present with probability p. b) At test time, the unit is always present.")
 
 - Dropout drops the activations in the network.
 - Dropout is used only in the training process and not during test time.
 
 ### 2. DropConnect
 
-![]({{ site.baseurl }}/images/dropout-vs-dropconnect.png "DropOut vs DropConnect")
+![]({{ site.baseurl }}/images/little_pieces/dropout-vs-dropconnect.png "DropOut vs DropConnect")
 
 DropConnect is similar to Dropout, but it drops the weights instead of the nodes in the network with a certain probability, so a node remains partially active.
 
@@ -50,7 +54,7 @@ In Batch Normalization(BN), we take the average of the mean and standard deviati
 BN is applied for every training mini-batch. It is believed that BN adds a sense of randomness since each mini-batch will have a different set of means and standard deviations, thus the normalized values will be slightly different each time.
 
 
-![]({{ site.baseurl }}/images/bn.png "Figure showing the Batch Normalized Network.")
+![]({{ site.baseurl }}/images/little_pieces/bn.png "Figure showing the Batch Normalized Network.")
 
 - If the normalized activations are y^. BN Layer would contain: gamma * y^ + beta, where gamma, beta are learnable parameters. These are used to tune the normalized activations to make accurate predictions.
 
@@ -73,7 +77,7 @@ The ways we can add noise include:
 - adding noise to labels ( class labels )
 - adding gradient noise
 
-![]({{ site.baseurl }}/images/gradient_noise.png "Gradient Noise, Credits : Neelakantan et al")
+![]({{ site.baseurl }}/images/little_pieces/gradient_noise.png "Gradient Noise, Credits : Neelakantan et al")
 
 Gaussian noise is added to every gradient g at every time step t.
 
@@ -89,7 +93,7 @@ The goal of this intialisation is to ensure that the variance of activations is 
 - Xavier init is designed to work well with tanh and sigmoid activations.
 
 Xavier initialization sets a layer’s weights to values chosen from a random uniform distribution that’s bounded between :
-![]({{ site.baseurl }}/images/xavier_init.png "Layers weights picked from a random uniform distribution having the above bounds, Credits: Xavier Glorot et al")
+![]({{ site.baseurl }}/images/little_pieces/xavier_init.png "Layers weights picked from a random uniform distribution having the above bounds, Credits: Xavier Glorot et al")
 
 In the above equation:
 - nj is the number of incoming connections to a layer.
@@ -98,7 +102,7 @@ In the above equation:
 ### 2. He's initialisation
 
 This is more suited for activation functions such as ReLU, it takes into account the non-linearity of functions.
-![]({{ site.baseurl }}/images/he_init.png "Truncated normal distribution centered on 0, stddev = sqrt(2 / fan_in), Credits : He et al")
+![]({{ site.baseurl }}/images/little_pieces/he_init.png "Truncated normal distribution centered on 0, stddev = sqrt(2 / fan_in), Credits : He et al")
 It draws samples from a *truncated normal distribution* centered on 0 with stddev = sqrt(2 / fan_in) where fan_in is the number of input units in the weight tensor.
 
 ## Choosing Gradient Descent Parameters
@@ -123,10 +127,6 @@ It is well suited for working with sparse data.
 
 where Gt holds the *sum of the squares of all previous gradients* till the point t.
 
-Ref :
-https://ruder.io/optimizing-gradient-descent/index.html
-https://mlfromscratch.com/optimizers-explained/#/�
-
 Advantages :
 
 - No need to manually change the learning rate.
@@ -149,7 +149,7 @@ For example, in the above equation
 This means the direction of the previous gradients is given more weightage than the recent update. This ensures that the gradient does not oscillate much and moves in the right direction.
 
 
-![]({{ site.baseurl }}/images/rms_prop.png "Momentum (blue) and RMSprop (green) convergence. We see that RMSprop is faster.")
+![]({{ site.baseurl }}/images/little_pieces/rms_prop.png "Momentum (blue) and RMSprop (green) convergence. We see that RMSprop is faster.")
 
 
 ### 3. Adam - Adaptive Moment Estimation
@@ -158,7 +158,7 @@ The addition in Adam is that it stores :
 - exponentially decaying average of past gradients (mt) - Equation 1 +
 - exponentially decaying average of past squared gradients (vt) - Equation 2 [As in RMSProp]
 
-![]({{ site.baseurl }}/images/adam_equation_numbered.png "Adam Optimizer equations.")
+![]({{ site.baseurl }}/images/little_pieces/adam_equation_numbered.png "Adam Optimizer equations.")
 
 The authors observed that when :
 - mt, vt are initialised as vectors of zeros and
@@ -207,7 +207,7 @@ w = w + vt
 ```
 The gradient is computed at the lookahead point(w_ahead) instead of the old position w.
 
-![]({{ site.baseurl }}/images/momentum-vs-nestorov.png "Nesterov momentum update is closer to the actual step as compared with momentum alone.")
+![]({{ site.baseurl }}/images/little_pieces/momentum-vs-nestorov.png "Nesterov momentum update is closer to the actual step as compared with momentum alone.")
 
 Nesterov momentum: Instead of evaluating the gradient at the current position (red circle), we know that our momentum is about to carry us to the tip of the green arrow. With Nesterov momentum, we therefore instead evaluate the gradient at this "looked-ahead" position.
 
@@ -215,7 +215,7 @@ Nesterov momentum: Instead of evaluating the gradient at the current position (r
 
 An activation function is a non-linear transformation we do over the weighted sum of inputs before sending it to the next layer.
 
-![]({{ site.baseurl }}/images/activation_function.png "Activation fn being applied over the weighted sum of inputs.")
+![]({{ site.baseurl }}/images/little_pieces/activation_function.png "Activation fn being applied over the weighted sum of inputs.")
 
 Activation functions add non-linearity to our NN and without it, our NN would just be a product + bias addition which would be a linear transformation. This would limit the capabilities of our NN.
 
@@ -227,7 +227,7 @@ ReLU function :
        = x when x > 0
   -> f(x) = max(0, x)
 ```
-![]({{ site.baseurl }}/images/relu_function.png "Graphical representation of the ReLU function.")
+![]({{ site.baseurl }}/images/little_pieces/relu_function.png "Graphical representation of the ReLU function.")
 
 ReLU helps in faster and efficient training of the NN and leads to fewer vanishing gradient problems.
 
@@ -247,7 +247,7 @@ Modified version of ReLU
 
 Leaky ReLUs allow a small, positive gradient when the unit is not active. This activation is preferred in tasks that suffer from sparse gradients, for example in training GANs.
 
-![]({{ site.baseurl }}/images/leaky_vs_parametric_relu.png "Comparison of Leaky vs Parametric ReLU.")
+![]({{ site.baseurl }}/images/little_pieces/leaky_vs_parametric_relu.png "Comparison of Leaky vs Parametric ReLU.")
 
 
 ### 3. PReLU - Parametric ReLU
@@ -269,7 +269,7 @@ ELU function :
   a is a hyperparameter to be tuned, and a > 0 is a constraint.
 ```
 
-![]({{ site.baseurl }}/images/elu_function.png "Graphical representation of ELU.")
+![]({{ site.baseurl }}/images/little_pieces/elu_function.png "Graphical representation of ELU.")
 
 ELUs try to make the mean activations closer to zero, which speeds up the learning.
 
