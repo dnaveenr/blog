@@ -22,17 +22,6 @@
         
     
   
-    
-        ,"post2": {
-            "title": "Sample First Post",
-            "content": "I have thinking to start a blog from a very long time to publish articles about something the work I do. Finally, the day has arrived. Looking forward to write some good articles and help the community as well as present some of ideas on current things I’m reading, recent travel experiences and so on. .",
-            "url": "https://dnaveenr.github.io/blog/first_post/start/2020/11/02/first-blog-post.html",
-            "relUrl": "/first_post/start/2020/11/02/first-blog-post.html",
-            "date": " • Nov 2, 2020"
-        }
-        
-    
-  
 
   
   
@@ -54,16 +43,12 @@
   
 
   
-
-  
   
 
   
-
-  
-      ,"page7": {
+      ,"page5": {
           "title": "Travel",
-          "content": "",
+          "content": "Coming soon. .",
           "url": "https://dnaveenr.github.io/blog/travel/",
           "relUrl": "/travel/",
           "date": ""
@@ -81,7 +66,7 @@
   
 
   
-      ,"page11": {
+      ,"page9": {
           "title": "",
           "content": "Sitemap: {{ “sitemap.xml” | absolute_url }} | .",
           "url": "https://dnaveenr.github.io/blog/robots.txt",
