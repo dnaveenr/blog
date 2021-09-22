@@ -12,7 +12,7 @@ title: Little Pieces that made the Whole
 I was part of the CVIT Summer School 2021, in one of the lectures by Prof.Vineeth Balasubramanian, the following slide was used to describe the various pieces which led to the advancements in DL.
 
 <figure>
-    <img src='https://dnaveenr.github.io/blog/images/little_pieces/pieces-that-made-ML.png' width="600" height="450"/>
+    <img src='https://dnaveenr.github.io/blog/images/little_pieces/pieces-that-made-ML.png' width="600" height="450" style='width:100%;' border="0" />
     <figcaption>Little Pieces that made the Whole. Credits : Prof.Vineeth Balasubramanian slides</figcaption>
 </figure>
 
@@ -140,7 +140,7 @@ Disadvantages :
 
 It is very similar to Adagrad but it aims to fix the problem of the diminishing gradient by using an **exponentially decaying average** of the gradient.
 
-<img src="https://miro.medium.com/max/1366/1*9v4BxT8pWHwJfbNXGqi7lQ.png" width="400" height="150"/>
+<img src="https://miro.medium.com/max/1366/1*9v4BxT8pWHwJfbNXGqi7lQ.png" width="400" height="150" style='width:100%;' border="0"/>
 
 For example, in the above equation
 - if value of beta = 0.9, 
@@ -281,7 +281,7 @@ A loss function is a function we use to optimize the parameters of our model.
 
 It is generally used for the optimization of classification problems. When the number of classes is 2, it is known as binary cross entropy loss.
 
-<img src="https://androidkt.com/wp-content/uploads/2021/05/Selection_098.png" width="400" height="150"/>
+<img src="https://androidkt.com/wp-content/uploads/2021/05/Selection_098.png" width="400" height="150" style='width:100%;' border="0"/>
 
 
 ### 2. Embedding Loss
@@ -293,7 +293,7 @@ Examples of embedding losses are contrastive loss, triplet loss, margin loss etc
 
 The average squared error of the actual and estimated value i.e mean of the square of the errors.
 
-<img src="https://d1zx6djv3kb1v7.cloudfront.net/wp-content/media/2019/11/Differences-between-MSE-and-RMSE-1-i2tutorials.jpg" width="400" height="150"/>
+<img src="https://d1zx6djv3kb1v7.cloudfront.net/wp-content/media/2019/11/Differences-between-MSE-and-RMSE-1-i2tutorials.jpg" width="400" height="150" style='width:100%;' border="0"/>
 
 
 It is a commonly used loss function for regression.
