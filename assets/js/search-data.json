@@ -77,7 +77,10 @@
   
 
   
-      ,"page9": {
+  
+
+  
+      ,"page10": {
           "title": "",
           "content": "Sitemap: {{ “sitemap.xml” | absolute_url }} | .",
           "url": "https://dnaveenr.github.io/blog/robots.txt",
